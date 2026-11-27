@@ -1,0 +1,10 @@
+# Arquivos temporários e credenciais
+.env
+.env.backup
+/vendor
+/node_modules
+/storage/*.key
+/public/storage
+/database/*.sqlite
+*.log
+.DS_Store
