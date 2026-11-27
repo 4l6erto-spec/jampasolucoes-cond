@@ -11,9 +11,10 @@ COPY composer.json ./
 RUN composer install --no-dev --prefer-dist --no-interaction --no-scripts --no-progress
 
 COPY . .
-RUN composer dump-autoload --no-dev --optimize \
+RUN mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && composer dump-autoload --no-dev --optimize --no-scripts \
     && php artisan package:discover --ansi \
-    && mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
 CMD ["php-fpm"]
